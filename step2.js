@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { 
     const params = new URLSearchParams(window.location.search);
-    const maxNumbers = parseInt(params.get("n"), 10) ; // Quantidade solicitada ou valor padrão
+    const maxNumbers = parseInt(params.get("n")); // Quantidade solicitada ou valor padrão
     const selectedNumbers = new Set();
     const totalNumbers = 500; // Total de números na rifa
 
@@ -59,20 +59,31 @@ document.addEventListener("DOMContentLoaded", () => {
             selectedNumbers: Array.from(selectedNumbers), // Garante um array de strings
         };
 
+        // Substitua "YOUR_API_KEY" e "YOUR_BASE_ID" pelos valores obtidos
+        const apiKey = "pat6SzawWOx1PX6hq.c08b8ba67206eb4f5b14e69d4c1a10f0a5878c31fae5e74caacd866f12ea2261"; // O Token de Acesso Pessoal que você gerou
+
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbzFc6ROkAsz474rEs4rpVDXpTklsstjr48VDFB1TbKsM9ZTMFOXcLASMD5f2kck-3yM/exec", {
+            const response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json", // O tipo de conteúdo precisa corresponder ao esperado pelo Apps Script
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`, // Aqui é onde você usa o Token de Acesso Pessoal
                 },
-                body: JSON.stringify(userData),
+                body: JSON.stringify({
+                    fields: {
+                        Name: userData.name,
+                        Phone: userData.phone,
+                        Instagram: userData.instagram,
+                        SelectedNumbers: userData.selectedNumbers,
+                    },
+                }),
             });
 
             if (!response.ok) {
                 throw new Error(`Erro ao salvar: HTTP ${response.status}`);
             }
 
-            const result = await response.text(); // O Apps Script retorna texto, não JSON
+            const result = await response.json();
             alert("Seus dados foram salvos com sucesso!");
             console.log("Resultado:", result);
 
@@ -88,13 +99,4 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Erro ao salvar os dados. Por favor, tente novamente.");
         }
     });
-
-    function doGet(e) {
-        return ContentService.createTextOutput("")
-            .setMimeType(ContentService.MimeType.JSON)
-            .setHeader("Access-Control-Allow-Origin", "*")
-            .setHeader("Access-Control-Allow-Methods", "POST, OPTIONS")
-            .setHeader("Access-Control-Allow-Headers", "Content-Type");
-    }
-    
 });
