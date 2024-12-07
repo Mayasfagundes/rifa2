@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha seus números</title>
+    <link rel="stylesheet" href="passo2.css">
+</head>
+<body>
+    <h1>Escolha Seus Números</h1>
+    <form id="user-info-form">
+        <input type="text" id="name" placeholder="Nome Completo" required />
+        <input type="tel" id="phone" placeholder="Telefone" required />
+        <input type="text" id="instagram" placeholder="Instagram" required />
+        <div id="number-selection">
+            <h2>Números Disponíveis</h2>
+            <div class="number-grid" id="number-grid"></div>
+        </div>
+        <button type="submit" id="submit-button" disabled>Finalizar</button>
+    </form>
+    <script src="step2.js"></script>
+</body>
+</html>
