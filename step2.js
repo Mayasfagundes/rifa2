@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => { 
     const params = new URLSearchParams(window.location.search);
-    const maxNumbers = parseInt(params.get("n")); // Quantidade solicitada ou valor padrão
+    const maxNumbers = parseInt(params.get("n"), 10); // Quantidade solicitada ou valor padrão
     const selectedNumbers = new Set();
     const totalNumbers = 500; // Total de números na rifa
 
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         // Substitua "YOUR_API_KEY" e "YOUR_BASE_ID" pelos valores obtidos
+        const apiUrl = `https://api.airtable.com/v0/FF8QqqpnYfbHEU/Participantes`;
         const apiKey = "pat6SzawWOx1PX6hq.c08b8ba67206eb4f5b14e69d4c1a10f0a5878c31fae5e74caacd866f12ea2261"; // O Token de Acesso Pessoal que você gerou
 
         try {
