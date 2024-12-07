@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => { 
+document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
-    const maxNumbers = parseInt(params.get("n"), 10); // Quantidade solicitada ou valor padrão
+    const maxNumbers = parseInt(params.get("n") ); 
     const selectedNumbers = new Set();
-    const totalNumbers = 500; // Total de números na rifa
+    const totalNumbers = 500; // Total de números disponíveis
 
     const numberGrid = document.getElementById("number-grid");
     const submitButton = document.getElementById("submit-button");
@@ -56,19 +56,19 @@ document.addEventListener("DOMContentLoaded", () => {
             name,
             phone,
             instagram,
-            selectedNumbers: Array.from(selectedNumbers), // Garante um array de strings
+            selectedNumbers: Array.from(selectedNumbers),
         };
 
-        // Substitua "YOUR_API_KEY" e "YOUR_BASE_ID" pelos valores obtidos
-        const apiUrl = `https://api.airtable.com/v0/FF8QqqpnYfbHEU/Participantes`;
-        const apiKey = "pat6SzawWOx1PX6hq.c08b8ba67206eb4f5b14e69d4c1a10f0a5878c31fae5e74caacd866f12ea2261"; // O Token de Acesso Pessoal que você gerou
+        // Configuração da API
+        const apiUrl = `https://api.airtable.com/v0/pat6SzawWOx1PX6hq.c08b8ba67206eb4f5b14e69d4c1a10f0a5878c31fae5e74caacd866f12ea2261`;
+        const apiKey = "FF8QqqpnYfbHEU"; // Substitua isso por uma variável segura no backend
 
         try {
             const response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${apiKey}`, // Aqui é onde você usa o Token de Acesso Pessoal
+                    "Authorization": `Bearer ${apiKey}`,
                 },
                 body: JSON.stringify({
                     fields: {
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll(".number.selected").forEach((el) => el.classList.remove("selected"));
 
             // Redireciona para a página de agradecimento
-            window.location.href = "agradecimento.html"; // Alterar para a página de confirmação
+            window.location.href = "agradecimento.html";
         } catch (error) {
             console.error("Erro ao salvar os dados:", error);
             alert("Erro ao salvar os dados. Por favor, tente novamente.");
